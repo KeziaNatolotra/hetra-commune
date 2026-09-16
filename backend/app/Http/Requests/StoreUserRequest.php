@@ -48,15 +48,15 @@ class StoreUserRequest extends FormRequest
             ],
 
             'role' => [
-                'required',
-                Rule::in([
-                    'administrateur',
-                    'responsable_commune',
-                    'responsable_financière',
-                    'contribuable',
-                    'agent_collecteur',
-                ]),
-            ],
+    		'required',
+    		Rule::in([
+        		'admin',
+        		'responsable_communal',
+        		'responsable_financiere',
+        		'contribuable',
+        		'agent_collecteur',
+    		]),
+	     ],
         ];
     }
 }

@@ -175,30 +175,30 @@ function AddUserForm({
                     <label>Rôle</label>
 
                     <select
-                        name="role"
-                        value={formData.role}
-                        onChange={handleChange}
-                    >
-                        <option value="administrateur">
-                            Administrateur
-                        </option>
+    			name="role"
+    			value={formData.role}
+   		 	onChange={handleChange}
+		    >
+    			<option value="admin">
+        		     Administrateur
+    			</option>
 
-                        <option value="responsable_commune">
-                            Responsable commune
-                        </option>
+    			<option value="responsable_communal">
+        		     Responsable commune
+    			</option>
 
-                        <option value="responsable_financière">
-                            Responsable financière
-                        </option>
+    			<option value="responsable_financiere">
+                             Responsable financière
+    			</option>
 
-                        <option value="contribuable">
-                            Contribuable
-                        </option>
+   		 	<option value="contribuable">
+                             Contribuable
+    			</option>
 
-                        <option value="agent_collecteur">
-                            Agent collecteur
-                        </option>
-                    </select>
+    			<option value="agent_collecteur">
+                             Agent collecteur
+   	 		</option>
+		     </select>
                 </div>
 
                 <div>
