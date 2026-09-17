@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContribuableController;
 use App\Http\Controllers\ContribuableTypeController;
+use App\Http\Controllers\TaxeController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -63,3 +64,21 @@ Route::middleware('auth:sanctum')->group(function () {
     // Types de contribuables
     Route::get('/contribuable-types', [ContribuableTypeController::class, 'index']);
 });
+// Taxes
+Route::get('/taxes', [TaxeController::class, 'index'])
+    ->middleware('permission:taxes.view');
+
+Route::post('/taxes', [TaxeController::class, 'store'])
+    ->middleware('permission:taxes.create');
+
+Route::get('/taxes/{taxe}', [TaxeController::class, 'show'])
+    ->middleware('permission:taxes.view');
+
+Route::put('/taxes/{taxe}', [TaxeController::class, 'update'])
+    ->middleware('permission:taxes.edit');
+
+Route::patch('/taxes/{taxe}/activate', [TaxeController::class, 'activate'])
+    ->middleware('permission:taxes.activate');
+
+Route::patch('/taxes/{taxe}/deactivate', [TaxeController::class, 'deactivate'])
+    ->middleware('permission:taxes.deactivate');
