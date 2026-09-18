@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContribuableController;
 use App\Http\Controllers\ContribuableTypeController;
 use App\Http\Controllers\TaxeController;
+use App\Http\Controllers\PeriodiciteController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -82,3 +83,22 @@ Route::patch('/taxes/{taxe}/activate', [TaxeController::class, 'activate'])
 
 Route::patch('/taxes/{taxe}/deactivate', [TaxeController::class, 'deactivate'])
     ->middleware('permission:taxes.deactivate');
+
+    // Périodicités
+    Route::get('/periodicites', [PeriodiciteController::class, 'index'])
+        ->middleware('permission:periodicites.view');
+
+    Route::post('/periodicites', [PeriodiciteController::class, 'store'])
+        ->middleware('permission:periodicites.create');
+
+    Route::get('/periodicites/{periodicite}', [PeriodiciteController::class, 'show'])
+        ->middleware('permission:periodicites.view');
+
+    Route::put('/periodicites/{periodicite}', [PeriodiciteController::class, 'update'])
+        ->middleware('permission:periodicites.edit');
+
+    Route::patch('/periodicites/{periodicite}/activate', [PeriodiciteController::class, 'activate'])
+        ->middleware('permission:periodicites.activate');
+
+    Route::patch('/periodicites/{periodicite}/deactivate', [PeriodiciteController::class, 'deactivate'])
+        ->middleware('permission:periodicites.deactivate');

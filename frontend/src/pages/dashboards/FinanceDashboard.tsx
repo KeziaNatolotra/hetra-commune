@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
+import ContribuableList from "../../components/contribuables/ContribuableList";
+import AddContribuableForm from "../../components/contribuables/AddContribuableForm";
+import TaxeList from "../../components/taxes/TaxeList";
+import AddTaxeForm from "../../components/taxes/AddTaxeForm";
+import PeriodiciteList from "../../components/periodicites/PeriodiciteList";
+import AddPeriodiciteForm from "../../components/periodicites/AddPeriodiciteForm";
 
 function FinanceDashboard() {
+    const [periodiciteRefresh, setPeriodiciteRefresh] = useState(0);
+    const [taxeRefresh, setTaxeRefresh] = useState(0);
+    const [contribuableRefresh, setContribuableRefresh] = useState(0);
     const [activePage, setActivePage] = useState("dashboard");
     const navigate = useNavigate();
 
@@ -73,18 +82,50 @@ function FinanceDashboard() {
                     </div>
                 )}
 
-                {activePage !== "dashboard" && (
+                  {activePage === "contribuables" && (
                     <div>
-                        <p>
-                            Module « {getPageTitle()} ».
-                        </p>
-
-                        <p>
-                            Cette fonctionnalité sera développée
-                            dans une prochaine étape.
-                        </p>
+                        <ContribuableList key={contribuableRefresh} />
+                        <AddContribuableForm
+                            onSuccess={() =>
+                                setContribuableRefresh((n) => n + 1)
+                            }
+                        />
                     </div>
                 )}
+
+                  {activePage === "taxes" && (
+                    <div>
+                        <TaxeList key={taxeRefresh} />
+                        <AddTaxeForm
+                            onSuccess={() => setTaxeRefresh((n) => n + 1)}
+                        />
+                    </div>
+                )}
+                  {activePage === "periodicites" && (
+                    <div>
+                        <PeriodiciteList key={periodiciteRefresh} />
+                        <AddPeriodiciteForm
+                            onSuccess={() =>
+                                setPeriodiciteRefresh((n) => n + 1)
+                            }
+                        />
+                    </div>
+                )}
+                {activePage !== "dashboard" &&
+                    activePage !== "contribuables" &&
+                    activePage !== "taxes" && 
+		    activePage !== "periodicites" &&(
+                        <div>
+                            <p>
+                                Module « {getPageTitle()} ».
+                            </p>
+
+                            <p>
+                                Cette fonctionnalité sera développée
+                                dans une prochaine étape.
+                            </p>
+                        </div>
+                    )}
             </main>
         </div>
     );

@@ -83,6 +83,8 @@ function Dashboard() {
             👤 Contribuables → Ajouter
           </button>
         )}
+
+	
       </nav>
 
       <main>
@@ -118,7 +120,8 @@ function Dashboard() {
               onSuccess={() => setActivePage("contribuable-list")}
               onCancel={() => setActivePage("dashboard")}
             />
-          )}
+         )}
+
       </main>
     </div>
   );
