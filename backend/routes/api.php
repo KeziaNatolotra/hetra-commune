@@ -8,6 +8,7 @@ use App\Http\Controllers\ContribuableController;
 use App\Http\Controllers\ContribuableTypeController;
 use App\Http\Controllers\TaxeController;
 use App\Http\Controllers\PeriodiciteController;
+use App\Http\Controllers\AffectationController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -102,3 +103,16 @@ Route::patch('/taxes/{taxe}/deactivate', [TaxeController::class, 'deactivate'])
 
     Route::patch('/periodicites/{periodicite}/deactivate', [PeriodiciteController::class, 'deactivate'])
         ->middleware('permission:periodicites.deactivate');
+
+    // Affectations
+    Route::get('/affectations', [AffectationController::class, 'index'])
+        ->middleware('permission:affectations.view');
+
+    Route::post('/affectations', [AffectationController::class, 'store'])
+        ->middleware('permission:affectations.create');
+
+    Route::get('/affectations/{affectation}', [AffectationController::class, 'show'])
+        ->middleware('permission:affectations.view');
+
+    Route::patch('/affectations/{affectation}/deactivate', [AffectationController::class, 'deactivate'])
+        ->middleware('permission:affectations.create');
