@@ -10,6 +10,8 @@ use App\Http\Controllers\TaxeController;
 use App\Http\Controllers\PeriodiciteController;
 use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\ObligationController;
+use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\MockMobileMoneyController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -129,3 +131,17 @@ Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])
 
 Route::patch('/obligations/{obligation}/cancel', [ObligationController::class, 'cancel'])
     ->middleware('permission:obligations.cancel');
+
+    // Paiements
+Route::get('/paiements', [PaiementController::class, 'index'])
+    ->middleware('permission:paiements.view');
+
+Route::post('/paiements', [PaiementController::class, 'store'])
+    ->middleware('permission:paiements.initiate');
+
+Route::get('/paiements/{paiement}', [PaiementController::class, 'show'])
+    ->middleware('permission:paiements.view');
+
+    // Callback Mock Mobile Money (simulateur)
+Route::patch('/mock-mobile-money/{referenceExterne}/callback', [MockMobileMoneyController::class, 'callback'])
+    ->middleware('permission:transactions.verify');
