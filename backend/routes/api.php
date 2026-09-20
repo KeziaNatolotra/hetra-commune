@@ -9,6 +9,7 @@ use App\Http\Controllers\ContribuableTypeController;
 use App\Http\Controllers\TaxeController;
 use App\Http\Controllers\PeriodiciteController;
 use App\Http\Controllers\AffectationController;
+use App\Http\Controllers\ObligationController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -116,3 +117,15 @@ Route::patch('/taxes/{taxe}/deactivate', [TaxeController::class, 'deactivate'])
 
     Route::patch('/affectations/{affectation}/deactivate', [AffectationController::class, 'deactivate'])
         ->middleware('permission:affectations.create');
+    // Obligations
+Route::get('/obligations', [ObligationController::class, 'index'])
+    ->middleware('permission:obligations.view');
+
+Route::post('/obligations', [ObligationController::class, 'store'])
+    ->middleware('permission:obligations.generate');
+
+Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])
+    ->middleware('permission:obligations.view');
+
+Route::patch('/obligations/{obligation}/cancel', [ObligationController::class, 'cancel'])
+    ->middleware('permission:obligations.cancel');
