@@ -9,9 +9,12 @@ import PeriodiciteList from "../../components/periodicites/PeriodiciteList";
 import AddPeriodiciteForm from "../../components/periodicites/AddPeriodiciteForm";
 import AffectationList from "../../components/affectations/AffectationList";
 import AddAffectationForm from "../../components/affectations/AddAffectationForm";
+import ObligationList from "../../components/obligations/ObligationList";
+import AddObligationForm from "../../components/obligations/AddObligationForm";
 
 function FinanceDashboard() {
     const [affectationRefresh, setAffectationRefresh] = useState(0);
+    const [obligationRefresh, setObligationRefresh] = useState(0);
     const [periodiciteRefresh, setPeriodiciteRefresh] = useState(0);
     const [taxeRefresh, setTaxeRefresh] = useState(0);
     const [contribuableRefresh, setContribuableRefresh] = useState(0);
@@ -124,11 +127,22 @@ function FinanceDashboard() {
                         />
                     </div>
                 )}
+                    {activePage === "obligations" && (
+                    <div>
+                        <ObligationList key={obligationRefresh} />
+                        <AddObligationForm
+                            onSuccess={() =>
+                                setObligationRefresh((n) => n + 1)
+                            }
+                        />
+                    </div>
+                )}
                 {activePage !== "dashboard" &&
                     activePage !== "contribuables" &&
                     activePage !== "taxes" && 
 		    activePage !== "periodicites" &&
-		    activePage !== "affectations" &&(
+		    activePage !== "affectations" &&
+            activePage !== "obligations" &&(
                         <div>
                             <p>
                                 Module « {getPageTitle()} ».

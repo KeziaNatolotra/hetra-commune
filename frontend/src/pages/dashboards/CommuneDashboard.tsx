@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
+import ContribuableList from "../../components/contribuables/ContribuableList";
+import TaxeList from "../../components/taxes/TaxeList";
+import ObligationList from "../../components/obligations/ObligationList";
 
 function CommuneDashboard() {
     const [activePage, setActivePage] = useState("dashboard");
@@ -59,15 +62,39 @@ function CommuneDashboard() {
             <main>
                 <h2>{getPageTitle()}</h2>
 
-                {activePage === "dashboard" && (
+                {activePage === "contribuables" && (
                     <div>
-                        <p>
-                            Bienvenue dans le tableau de bord
-                            du responsable commune.
-                        </p>
+                         <ContribuableList />
                     </div>
                 )}
 
+                {activePage === "taxes" && (
+                    <div>
+                        <TaxeList />
+                    </div>
+                )}
+
+                {activePage === "obligations" && (
+                    <div>
+                        <ObligationList readOnly />
+                    </div>
+                )}
+
+                {activePage !== "dashboard" &&
+                    activePage !== "contribuables" &&
+                    activePage !== "taxes" &&
+                    activePage !== "obligations" && (
+                    <div>
+                        <p>
+                            Module « {getPageTitle()} ».
+                        </p>
+
+                        <p>
+                Cette fonctionnalité sera développée
+                dans une prochaine étape.
+                        </p>
+                    </div>
+                )}
                 {activePage !== "dashboard" && (
                     <div>
                         <p>
