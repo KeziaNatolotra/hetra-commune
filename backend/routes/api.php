@@ -12,6 +12,7 @@ use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\ObligationController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\MockMobileMoneyController;
+use App\Http\Controllers\RecuController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -145,3 +146,13 @@ Route::get('/paiements/{paiement}', [PaiementController::class, 'show'])
     // Callback Mock Mobile Money (simulateur)
 Route::patch('/mock-mobile-money/{referenceExterne}/callback', [MockMobileMoneyController::class, 'callback'])
     ->middleware('permission:transactions.verify');
+
+    // Reçus
+Route::get('/recus', [RecuController::class, 'index'])
+    ->middleware('permission:recus.view');
+
+Route::get('/recus/{recu}', [RecuController::class, 'show'])
+    ->middleware('permission:recus.view');
+
+Route::get('/recus-verifier/{numeroRecu}', [RecuController::class, 'verifier'])
+    ->middleware('permission:recus.verify');

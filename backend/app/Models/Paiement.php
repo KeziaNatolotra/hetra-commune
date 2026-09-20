@@ -35,4 +35,8 @@ class Paiement extends Model
     {
         return $this->hasOne(Transaction::class);
     }
+    public function recu()
+    {
+    return $this->hasOne(Recu::class);
+    }
 }

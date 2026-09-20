@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\Recu;
 
 class MockMobileMoneyController extends Controller
 {
@@ -46,7 +47,15 @@ class MockMobileMoneyController extends Controller
                     ? 'paye'
                     : 'partiellement_paye',
             ]);
+            Recu::create([
+            'paiement_id' => $paiement->id,
+            'numero_recu' => 'HTK-RCT-' . now()->format('Y') . '-' . str_pad((string) $paiement->id, 6, '0', STR_PAD_LEFT),
+            'montant' => $paiement->montant,
+            'date_emission' => now(),
+            'statut' => 'valide',
+            ]);
         }
+
 
         return response()->json($transaction->load('paiement.obligation'));
     }
