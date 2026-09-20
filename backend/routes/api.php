@@ -13,6 +13,8 @@ use App\Http\Controllers\ObligationController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\MockMobileMoneyController;
 use App\Http\Controllers\RecuController;
+use App\Http\Controllers\QrCodeController;
+
 
 Route::get('/test', function () {
     return response()->json([
@@ -156,3 +158,16 @@ Route::get('/recus/{recu}', [RecuController::class, 'show'])
 
 Route::get('/recus-verifier/{numeroRecu}', [RecuController::class, 'verifier'])
     ->middleware('permission:recus.verify');
+
+    // QR Codes
+Route::get('/qr-codes', [QrCodeController::class, 'index'])
+    ->middleware('permission:qr.view');
+
+Route::post('/qr-codes', [QrCodeController::class, 'store'])
+    ->middleware('permission:qr.generate');
+
+Route::patch('/qr-codes/{qrCode}/deactivate', [QrCodeController::class, 'deactivate'])
+    ->middleware('permission:qr.deactivate');
+
+Route::get('/qr-codes-verifier/{code}', [QrCodeController::class, 'verifier'])
+    ->middleware('permission:qr.verify');
